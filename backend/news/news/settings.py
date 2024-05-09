@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "posts.apps.PostsConfig",
     "users.apps.UsersConfig",
+    "api_v1.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [
@@ -153,8 +154,8 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.TokenAuthentication",
     ),
-    "DEFAULT_FILTER_BACKENDS": [
-        "django_filters.rest_framework.DjangoFilterBackend",
-        "rest_framework.filters.SearchFilter",
-    ],
+    # "DEFAULT_FILTER_BACKENDS": [
+    #     "django_filters.rest_framework.DjangoFilterBackend",
+    #     "rest_framework.filters.SearchFilter",
+    # ],
 }
