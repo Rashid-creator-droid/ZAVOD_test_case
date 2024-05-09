@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login and Posts</title>
+<style>
+    /* Стили для кнопки */
+    #loadMoreBtn {
+        display: none;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета при наведении */
+    }
+
+    #loadMoreBtn:hover {
+        background-color: #0056b3; /* Изменяем цвет при наведении */
+    }
+    .likeBtn,
+    .dislikeBtn {
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета при наведении */
+    }
+
+    .likeBtn:hover,
+    .dislikeBtn:hover {
+        background-color: #218838; /* Изменяем цвет при наведении */
+    }
+</style>
+</head>
+<body>
+
+<!-- Форма для входа -->
+<div id="loginForm">
+    <h2>Login</h2>
+    <form>
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<!-- Контейнер для постов -->
+<div id="postsContainer" style="display: none;"></div>
+<button id="loadMoreBtn">Load More</button>
+
+<script src="./script.js"></script>
+
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Post Likes Dislikes</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div>-->
+<!--        <p>Likes: <span id="like_count">0</span></p>-->
+<!--        <p>Dislikes: <span id="dislike_count">0</span></p>-->
+<!--    </div>-->
+
+
+<!--        <script src="./script.js"></script>-->
+
+<!--</body>-->
+<!--</html>-->
+
