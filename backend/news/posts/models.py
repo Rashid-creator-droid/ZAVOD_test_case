@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import DateTimeField
 
+
 User = get_user_model()
 
 
@@ -33,7 +34,7 @@ class Post(models.Model):
     author = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
-        related_name="recipe",
+        related_name="post",
         verbose_name="Автор",
     )
     text = models.TextField(verbose_name="Описание", max_length=1000)
@@ -44,7 +45,7 @@ class Post(models.Model):
     tag = models.ManyToManyField(
         Tag,
         verbose_name="Тег",
-        related_name="posts",
+        related_name="post",
     )
     pub_date = DateTimeField(
         verbose_name="Дата публикации",
@@ -71,6 +72,11 @@ class Favorites(models.Model):
         related_name="favorite",
         on_delete=models.CASCADE,
     )
+    status = models.BooleanField(
+        default=None,
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         verbose_name = "Избранное"
@@ -79,8 +85,5 @@ class Favorites(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=["user", "post"], name="uniquefavorit"
-            ),
-            models.CheckConstraint(
-                check=~models.Q(user=models.F("post")), name="favoriteuniq"
             ),
         ]
