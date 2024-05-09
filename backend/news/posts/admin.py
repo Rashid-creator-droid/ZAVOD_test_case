@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from posts.models import Tag, Post
+from posts.models import Tag, Post, Favorites
 
 
 @admin.register(Tag)
@@ -40,3 +40,8 @@ class PostAdmin(admin.ModelAdmin):
 
     def favorite_count(self, obj):
         return obj.favorite.count()
+
+
+@admin.register(Favorites)
+class FavoritesAdmin(admin.ModelAdmin):
+    list_display = ("post", "user", "status")
