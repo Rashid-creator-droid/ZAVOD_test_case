@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load cache %}
+{% load static %}
+{% block title %}Последние обновления на сайте{% endblock title %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/my.css' %}">
+<div class="post-container">
+    <h1>{{ post.name }}</h1>
+    <p>Автор: {{ post.author.first_name }} {{ post.author.last_name }}</p>
+    <p>Дата публикации: {{ post.pub_date }}</p>
+    <img src="{{ post.image }}" alt="Image">
+    <p>{{ post.text }}</p>
+    <p>Просмотры: {{ post.views_count }}</p>
+    <p>Лайки: <span id="likeCount_{{ post.id }}">{{ post.like_count }}</span></p>
+    <p>Дизлайки: <span id="dislikeCount_{{ post.id }}">{{ post.dislike_count }}</span></p>
+    <button class="likeBtn" data-post-id="{{ post.id }}">Лайк</button>
+    <button class="dislikeBtn" data-post-id="{{ post.id }}">Дизлайк</button>
+</div>
+<script src="{% static 'js/likes.js' %}"></script>
+{% endblock %}

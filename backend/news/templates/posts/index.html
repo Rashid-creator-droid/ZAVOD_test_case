@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load cache %}
+{% load static %}
+{% block title %}Последние обновления на сайте{% endblock title %}
+
+{% block content %}
+    <h1 class="text-center">Последние обновления на сайте</h1>
+<p>Теги</p>
+<div id="tags-container">
+    {% for tag in tags %}
+        <button class="tagBtn" data-tag-id="{{ tag.id }}">{{ tag.name }}</button>
+    {% endfor %}
+</div>
+<div id="content-container" class="container py-5">
+    {% load thumbnail %}
+</div>
+
+<link rel="stylesheet" href="{% static 'css/my.css' %}">
+<script src="{% static 'js/scroll.js' %}"></script>
+<script src="{% static 'js/likes.js' %}"></script>
+{% endblock %}
+
+
+
