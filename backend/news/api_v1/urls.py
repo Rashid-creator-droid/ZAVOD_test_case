@@ -2,13 +2,13 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from api_v1.views import PostViewSet, TagViewSet, add_favorite
-from users.views import SignUp
+from users.views import SignUpd
 
 app_name = "api_v1"
 
 router = DefaultRouter()
 
-router.register("users", SignUp, basename="users"),
+router.register("users", SignUpd, basename="users"),
 router.register("posts", PostViewSet, basename="posts")
 router.register("tags", TagViewSet, basename="tags")
 
