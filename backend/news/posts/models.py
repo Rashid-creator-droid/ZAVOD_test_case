@@ -7,6 +7,8 @@ User = get_user_model()
 
 
 class Ip(models.Model):
+    """Модель для IP"""
+
     ip = models.CharField(max_length=100)
 
 
@@ -15,6 +17,8 @@ def __str__(self):
 
 
 class Tag(models.Model):
+    """Модель для тега"""
+
     name = models.CharField(
         verbose_name="Название",
         max_length=200,
@@ -35,6 +39,8 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
+    """Модель для постов"""
+
     name = models.CharField(
         verbose_name="Название",
         max_length=200,
@@ -71,6 +77,8 @@ class Post(models.Model):
 
 
 class Favorites(models.Model):
+    """Модель для лайков/дизлайков"""
+
     user = models.ForeignKey(
         User,
         related_name="favorite",

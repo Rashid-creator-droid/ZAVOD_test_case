@@ -38,6 +38,8 @@ from .permissions import ReadOnly
     ),
 )
 class TagViewSet(viewsets.ModelViewSet):
+    """Вьюсет для тегов"""
+
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     permission_classes = [ReadOnly]
@@ -58,6 +60,8 @@ class TagViewSet(viewsets.ModelViewSet):
     ),
 )
 class PostViewSet(viewsets.ModelViewSet):
+    """Вьюсет для постов"""
+
     queryset = Post.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer

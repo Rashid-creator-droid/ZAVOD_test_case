@@ -4,6 +4,8 @@ from users.models import User
 
 
 class MeSerializer(UserCreateSerializer):
+    """Сериализатор пользователя"""
+
     class Meta:
         model = User
         fields = [
@@ -24,6 +26,7 @@ class MeSerializer(UserCreateSerializer):
 
 
 class SignUpSerializer(UserSerializer):
+    """Сериализатор авторизации"""
 
     class Meta:
         model = User

@@ -4,6 +4,8 @@ from posts.models import Tag, Post
 
 
 class PostFilter(FilterSet):
+    """Фильтр для тегов"""
+
     tags = filters.ModelMultipleChoiceFilter(
         field_name="tag__slug",
         queryset=Tag.objects.all(),

@@ -18,6 +18,8 @@ from .serializers import (
 
 
 class SignUpd(UserViewSet):
+    """Авторизация API"""
+
     queryset = User.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
 
@@ -42,6 +44,8 @@ class SignUpd(UserViewSet):
 
 
 class SignUp(CreateView):
+    """Авторизация через форму"""
+
     form_class = CreationForm
     success_url = reverse_lazy("posts:index")
     template_name = "users/signup.html"

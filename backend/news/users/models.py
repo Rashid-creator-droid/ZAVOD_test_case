@@ -4,6 +4,8 @@ from django.db import models
 
 
 class User(AbstractUser):
+    """Модель юзера"""
+
     username = models.CharField(
         verbose_name="Логин",
         max_length=150,

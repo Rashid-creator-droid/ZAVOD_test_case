@@ -3,6 +3,8 @@ import json
 
 
 class PostLikesDislikesConsumer(AsyncWebsocketConsumer):
+    """Обработка соединение WS"""
+
     async def connect(self):
         self.group_name = "post_likes_dislikes"
         await self.channel_layer.group_add(self.group_name, self.channel_name)

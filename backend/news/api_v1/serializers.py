@@ -1,12 +1,13 @@
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 
-
 from posts.models import Tag, Post, Favorites
 from users.serializers import MeSerializer
 
 
 class TagSerializer(serializers.ModelSerializer):
+    """Сериализатор тегов"""
+
     class Meta:
         model = Tag
         fields = [
@@ -17,6 +18,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    """Сериализатор постов"""
 
     image = Base64ImageField()
     is_favorited = serializers.SerializerMethodField("get_is_favorited")
@@ -65,6 +67,8 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class PostEditSerializer(serializers.ModelSerializer):
+    """Сериализатор для добавления поста"""
+
     image = Base64ImageField(
         max_length=None,
         use_url=True,

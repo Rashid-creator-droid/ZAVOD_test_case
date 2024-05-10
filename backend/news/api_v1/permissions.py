@@ -2,6 +2,8 @@ from rest_framework import permissions
 
 
 class ReadOnly(permissions.BasePermission):
+    """Права доступа"""
+
     message = "Доступно только для чтения"
 
     def has_permission(self, request, view):
