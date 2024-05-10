@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load cache %}
+{% load static %}
+{% block title %}Просмотры{% endblock title %}
+
+{% block content %}
+  <h1>Всего просмотров: {{ total_views }}</h1>
+  <h2>Топ 3 новостей по просмотрам:</h2>
+  <ul>
+    {% for post in top_posts %}
+      <li>{{ post.name }} - {{ post.num_views }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
