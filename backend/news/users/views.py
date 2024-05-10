@@ -6,7 +6,10 @@ from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
 )
 from rest_framework.response import Response
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
+from .forms import CreationForm
 from core.pagination import LargeResultsSetPagination
 from users.models import User
 from .serializers import (
@@ -15,7 +18,7 @@ from .serializers import (
 )
 
 
-class SignUp(UserViewSet):
+class SignUpd(UserViewSet):
     queryset = User.objects.all()
     pagination_class = LargeResultsSetPagination
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -38,3 +41,9 @@ class SignUp(UserViewSet):
         if request.method == "GET":
             serializer = serializer_class(request.user, many=False)
             return Response(serializer.data)
+
+
+class SignUp(CreateView):
+    form_class = CreationForm
+    success_url = reverse_lazy("posts:index")
+    template_name = "users/signup.html"

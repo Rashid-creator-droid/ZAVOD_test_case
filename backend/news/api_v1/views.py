@@ -1,19 +1,20 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.pagination import (
-    PageNumberPagination,
-)
+from rest_framework.decorators import api_view, permission_classes, action
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
     IsAuthenticated,
 )
+from rest_framework.response import Response
 
 from api_v1.serializers import TagSerializer, PostSerializer
 from posts.models import Tag, Post, Favorites
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+
+from .filters import PostFilter
 from .permissions import ReadOnly
 
 
@@ -27,17 +28,15 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
-    pagination_class = PageNumberPagination
+    filterset_class = PostFilter
+    pagination_class = LimitOffsetPagination
 
-
-# class FavoriteViewSet(viewsets.ModelViewSet):
-#     queryset = Favorites.objects.all()
-#     permission_classes = [IsAuthenticatedOrReadOnly]
-#
-#     def get_serializer_class(self):
-#         if self.request.method in SAFE_METHODS:
-#             return RecipeSerializer
-#         return RecipeEditSerializer
+    @action(detail=True, methods=["get"])
+    def view_post(self, request, pk=None):
+        post = self.get_object()
+        post.views_count += 1
+        post.save()
+        return Response({"message": "Просмотр поста увеличен на 1."})
 
 
 @api_view(["POST", "DELETE"])
