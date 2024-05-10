@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from posts.models import Tag, Post, Favorites
+from posts.models import Tag, Post, Favorites, Ip
 
 
 @admin.register(Tag)
@@ -12,6 +12,9 @@ class TagAdmin(admin.ModelAdmin):
         "slug",
     )
     search_fields = ("name",)
+
+
+admin.site.register(Ip)
 
 
 @admin.register(Post)
