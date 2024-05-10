@@ -17,6 +17,8 @@ drf-extra-fields = "^3.7.0"
 channels = {extras = ["daphne"], version = "^4.1.0"}
 django-cors-headers = "^4.3.1"
 djoser = "^2.2.2"
+sorl-thumbnail = "^12.10.0"
+django-filter = "^24.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
