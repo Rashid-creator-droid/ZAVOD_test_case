@@ -30,6 +30,7 @@ class PostSerializer(serializers.ModelSerializer):
     tag = TagSerializer(many=True)
     like_count = serializers.SerializerMethodField("get_like_count")
     dislike_count = serializers.SerializerMethodField("get_dislike_count")
+    views_count = serializers.SerializerMethodField("get_views_count")
 
     class Meta:
         model = Post
@@ -43,7 +44,12 @@ class PostSerializer(serializers.ModelSerializer):
             "is_favorited",
             "like_count",
             "dislike_count",
+            "pub_date",
+            "views_count",
         ]
+
+    def get_views_count(self, obj):
+        return obj.views.count()
 
     def get_is_favorited(self, obj):
         request = self.context.get("request")
