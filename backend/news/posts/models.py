@@ -6,6 +6,14 @@ from django.db.models import DateTimeField
 User = get_user_model()
 
 
+class Ip(models.Model):  # наша таблица где будут айпи адреса
+    ip = models.CharField(max_length=100)
+
+
+def __str__(self):
+    return self.ip
+
+
 class Tag(models.Model):
     name = models.CharField(
         verbose_name="Название",
@@ -51,6 +59,7 @@ class Post(models.Model):
         verbose_name="Дата публикации",
         auto_now_add=True,
     )
+    views = models.ManyToManyField(Ip, related_name="post_views", blank=True)
 
     class Meta:
         verbose_name = "Пост"
