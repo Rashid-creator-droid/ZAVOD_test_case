@@ -6,7 +6,7 @@ from django.db.models import DateTimeField
 User = get_user_model()
 
 
-class Ip(models.Model):  # наша таблица где будут айпи адреса
+class Ip(models.Model):
     ip = models.CharField(max_length=100)
 
 
