@@ -131,6 +131,17 @@ function createPostElement(post) {
     });
     postContainer.appendChild(nameElement);
 
+    const tagsContainer = document.createElement('div');
+    tagsContainer.classList.add('tags-container');
+    postContainer.appendChild(tagsContainer);
+
+    post.tag.forEach(tag => {
+        const tagElement = document.createElement('span');
+        tagElement.textContent = tag.name;
+        tagElement.classList.add('tag');
+        tagsContainer.appendChild(tagElement);
+    });
+
     const authorInfo = document.createElement('p');
     authorInfo.textContent = `Автор: ${post.author.first_name} ${post.author.last_name}`;
     postContainer.appendChild(authorInfo);

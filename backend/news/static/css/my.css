@@ -4,8 +4,8 @@
         border: 1px solid #ccc;
         margin-bottom: 20px;
         padding: 20px;
-        max-width: 600px; /* Установите желаемую ширину контейнера поста */
-        margin: 0 auto; /* Центрирование контейнера */
+        max-width: 600px;
+        margin: 0 auto;
     }
 
 .post-container img {
@@ -35,12 +35,24 @@
     background-color: #45a049;
 }
 .post-name {
-    color: #007bff; /* Цвет текста для ссылки */
-    text-decoration: underline; /* Подчеркивание ссылки */
-    cursor: pointer; /* Изменение курсора при наведении */
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
     font-size: 24px;
 }
 
 .post-name:hover {
-    color: #0056b3; /* Изменение цвета текста при наведении */
+    color: #0056b3;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #5cb85c;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: bold;
 }
