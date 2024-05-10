@@ -16,12 +16,6 @@ class TagSerializer(serializers.ModelSerializer):
         ]
 
 
-class FavoritesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Favorites
-        fields = ["status"]
-
-
 class PostSerializer(serializers.ModelSerializer):
 
     image = Base64ImageField()
@@ -68,3 +62,23 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_dislike_count(self, obj):
         return Favorites.objects.filter(status=False, post=obj).count()
+
+
+class PostEditSerializer(serializers.ModelSerializer):
+    image = Base64ImageField(
+        max_length=None,
+        use_url=True,
+    )
+    author = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+    )
+
+    class Meta:
+        model = Post
+        fields = "__all__"
+
+    def create(self, validated_data):
+        tag = validated_data.pop("tag")
+        recipe = Post.objects.create(**validated_data)
+        recipe.tag.set(tag)
+        return recipe
