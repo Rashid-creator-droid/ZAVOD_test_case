@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    image: valentaine98/news:latest
+    command: python manage.py runserver 0.0.0.0:8001
+    ports:
+      - "8001:8001"
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+
+  db:
+    # Используем образ с SQLite, нет необходимости в настройке переменных окружения
+    image: python:3.11-alpine
+    volumes:
+      # Монтируем файл базы данных SQLite внутрь контейнера
+      - ./db.sqlite3:/code/db.sqlite3
