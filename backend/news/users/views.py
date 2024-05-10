@@ -10,7 +10,6 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
 from .forms import CreationForm
-from core.pagination import LargeResultsSetPagination
 from users.models import User
 from .serializers import (
     MeSerializer,
@@ -20,7 +19,6 @@ from .serializers import (
 
 class SignUpd(UserViewSet):
     queryset = User.objects.all()
-    pagination_class = LargeResultsSetPagination
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_serializer_class(self):
