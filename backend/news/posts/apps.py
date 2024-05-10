@@ -6,5 +6,4 @@ class PostsConfig(AppConfig):
     name = "posts"
 
     def ready(self):
-        # Импортируем сигналы при запуске приложения
         pass
