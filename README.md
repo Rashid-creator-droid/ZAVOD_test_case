@@ -72,17 +72,26 @@ poetry install
 ```
 pre-commit install
 ```
-### Перейти в папку news
+### Перейти в папку backend/news
 ```
+cd backend
 cd news
 ```
-### Команды для применения миграций
+### Команда для применения миграций
 ```
 python manage.py migrate
+```
+### Команда для применения полного дампа БД без картинок.
+```
+python manage.py loaddata db.json
 ```
 ### Запуск проекта
 ```
 python manage.py runserver 8001
+```
+### Проект будет доступен по адресу.
+```
+http://127.0.0.1:8001/
 ```
 ## Установка контейнера Docker
 ### Склонировать репозиторий
@@ -97,12 +106,16 @@ git checkout dev/start
 ```
 cd infra
 ```
-### Запустить сборку образа
+### Запустить сборку контейнера
 ```
 sudo docker-compose up -d
+``` 
+### Проект будет доступен по адресу
+```
+http://localhost:8001/
 ``` 
 
 # Документация API будет доступна по адресу.
 ```
-http://localhost:8001/api/schema/swagger-ui/
+http://localhost:8001/api/schema/redoc/
 ``` 
