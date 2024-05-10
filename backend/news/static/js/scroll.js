@@ -3,36 +3,31 @@ const limit = 3;
 const contentContainer = document.getElementById('content-container');
 let loading = false;
 let hasMoreContent = true;
-let selectedTag = null; // Переменная для хранения выбранного тега
+let selectedTag = null;
 
-// Бесконечный скролл.
+// Скролл
 window.onscroll = function () {
     const scrollPosition = window.innerHeight + window.scrollY;
     const pageHeight = document.documentElement.scrollHeight;
     const bottomThreshold = 100;
-
     if (!loading && hasMoreContent && window.innerHeight + window.scrollY >= document.body.offsetHeight - bottomThreshold) {
     loading = true;
 
         if (selectedTag) {
-            // Если выбран тег, загружаем контент с учетом тега
             loadMoreContent(`/api/posts/?tag=${selectedTag}&offset=${offset}&limit=${limit}`).then(() => {
+            console.log(hasMoreContent)
                 loading = false;
-
                 if (!hasMoreContent) {
                     window.onscroll = null;
                 }
-                console.log(' Yfasd')
             });
         } else {
-            // Если тег не выбран, загружаем обычный контент
             loadMoreContent().then(() => {
                 loading = false;
-
+                console.log(hasMoreContent)
                 if (!hasMoreContent) {
                     window.onscroll = null;
                 }
-                console.log(' Yfasd')
             });
         }
     }
@@ -40,15 +35,15 @@ window.onscroll = function () {
 
 
 let tags = [];
-fetch('http://127.0.0.1:8001/api/tags/')
+fetch(`/api/tags/`)
     .then(response => response.json())
     .then(data => {
-        tags = data.results;
+        tags = data;
         renderTags(tags);
     })
     .catch(error => console.error("Ошибка при загрузке тегов:", error));
 
-// Функция для отображения тегов
+// Отображение тегов
 function renderTags(tags) {
     const tagsContainer = document.getElementById('tags-container');
     tags.forEach(tag => {
@@ -62,13 +57,13 @@ function renderTags(tags) {
 }
 
 
-
+// Подгрузка новых постов
 function loadMoreContent() {
     let url = `/api/posts/?offset=${offset}&limit=${limit}`;
     if (selectedTag) {
         url += `&tag=${selectedTag}`;
-    }
 
+    }
     return fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -84,18 +79,44 @@ function loadMoreContent() {
                     contentContainer.appendChild(postElement);
                 });
                 offset += data.results.length;
+
             }
         })
         .catch(error => console.error("Ошибка при загрузке постов:", error));
 }
 
-// Функция для фильтрации постов по выбранному тегу
+// Фильтрация по тегу
 function filterByTag(tagId) {
-    offset = 0; // Сбрасываем смещение при изменении тега
-    selectedTag = tagId; // Сохраняем выбранный тег
-    contentContainer.innerHTML = ''; // Очищаем контейнер перед загрузкой новых постов
-    loadMoreContent(); // Вызываем функцию загрузки постов
+    offset = 0;
+    selectedTag = tagId;
+    contentContainer.innerHTML = '';
+    hasMoreContent = true;
+    loadMoreContent();
+    window.onscroll = function() {
+        const scrollPosition = window.innerHeight + window.scrollY;
+        const pageHeight = document.documentElement.scrollHeight;
+        const bottomThreshold = 100;
+        if (!loading && hasMoreContent && window.innerHeight + window.scrollY >= document.body.offsetHeight - bottomThreshold) {
+            loading = true;
+            if (selectedTag) {
+                loadMoreContent(`/api/posts/?tag=${selectedTag}&offset=${offset}&limit=${limit}`).then(() => {
+                    loading = false;
+                    if (!hasMoreContent) {
+                        window.onscroll = null;
+                    }
+                });
+            } else {
+                loadMoreContent().then(() => {
+                    loading = false;
+                    if (!hasMoreContent) {
+                        window.onscroll = null;
+                    }
+                });
+            }
+        }
+    };
 }
+
 
 // Элементы поста.
 function createPostElement(post) {
@@ -104,9 +125,9 @@ function createPostElement(post) {
 
     const nameElement = document.createElement('p');
     nameElement.textContent = post.name;
-    nameElement.classList.add('post-name'); // Добавляем класс для стилизации или выделения ссылки
+    nameElement.classList.add('post-name');
     nameElement.addEventListener('click', function() {
-        window.location.href = `/post_detail/${post.id}`; // Переход на страницу post_detail с id поста
+        window.location.href = `/post_detail/${post.id}`;
     });
     postContainer.appendChild(nameElement);
 
@@ -134,7 +155,7 @@ function createPostElement(post) {
     postContainer.appendChild(likeCountContainer);
 
     const likeCountLabel = document.createElement('span');
-    likeCountLabel.textContent = 'Лайки: '; // Статичный текст
+    likeCountLabel.textContent = 'Лайки: ';
     likeCountContainer.appendChild(likeCountLabel);
 
     const likeCountElement = document.createElement('span');
@@ -147,17 +168,13 @@ function createPostElement(post) {
     postContainer.appendChild(dislikeCountContainer);
 
     const dislikeCountLabel = document.createElement('span');
-    dislikeCountLabel.textContent = 'Дизлайки: '; // Статичный текст
+    dislikeCountLabel.textContent = 'Дизлайки: ';
     dislikeCountContainer.appendChild(dislikeCountLabel);
 
     const dislikeCountElement = document.createElement('span');
     dislikeCountElement.id = `dislikeCount_${post.id}`;
     dislikeCountElement.textContent = post.dislike_count;
     dislikeCountContainer.appendChild(dislikeCountElement);
-
-
-
-
 
     const likeButton = document.createElement('button');
     likeButton.classList.add('likeBtn');
