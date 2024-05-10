@@ -1,0 +1,46 @@
+/* my.css */
+
+.post-container {
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+        padding: 20px;
+        max-width: 600px; /* Установите желаемую ширину контейнера поста */
+        margin: 0 auto; /* Центрирование контейнера */
+    }
+
+.post-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.likeBtn,
+.dislikeBtn {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.likeBtn:hover,
+.dislikeBtn:hover {
+    background-color: #45a049;
+}
+.post-name {
+    color: #007bff; /* Цвет текста для ссылки */
+    text-decoration: underline; /* Подчеркивание ссылки */
+    cursor: pointer; /* Изменение курсора при наведении */
+    font-size: 24px;
+}
+
+.post-name:hover {
+    color: #0056b3; /* Изменение цвета текста при наведении */
+}
