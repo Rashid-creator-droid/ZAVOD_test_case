@@ -47,10 +47,12 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
+    "django_filters",
     "djoser",
     "api_v1.apps.ApiConfig",
     "posts.apps.PostsConfig",
     "users.apps.UsersConfig",
+    "sorl.thumbnail",
 ]
 
 MIDDLEWARE = [
@@ -69,11 +71,12 @@ ROOT_URLCONF = "news.urls"
 CORS_URLS_REGEX = r"^/api/.*$"
 CORS_ORIGIN_ALLOW_ALL = True
 
+TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [TEMPLATES_DIR],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -81,7 +84,11 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "core.context_processors.year.year",
             ],
+            "libraries": {
+                "user_filters": "core.templatetags.user_filters",
+            },
         },
     },
 ]
@@ -141,8 +148,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
+STATICFILES_DIRS = ("static",)
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -165,15 +173,16 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 3,
-    # "DEFAULT_FILTER_BACKENDS": [
-    #     "django_filters.rest_framework.DjangoFilterBackend",
-    #     "rest_framework.filters.SearchFilter",
-    # ],
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.SearchFilter",
+    ],
 }
+LOGIN_URL = "users:login"
+LOGIN_REDIRECT_URL = "posts:index"
 
 DJOSER = {
     "HIDE_USERS": False,
     "LOGIN_FIELD": "email",
 }
-
 PAGE_SIZE = 6
