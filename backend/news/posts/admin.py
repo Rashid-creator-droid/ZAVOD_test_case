@@ -14,7 +14,12 @@ class TagAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
-admin.site.register(Ip)
+@admin.register(Ip)
+class IpAdmin(admin.ModelAdmin):
+    list_display = (
+        "pk",
+        "ip",
+    )
 
 
 @admin.register(Post)
