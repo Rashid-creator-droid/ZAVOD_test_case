@@ -1,4 +1,4 @@
-const ws = new WebSocket('ws://localhost:8001/ws/post_likes_dislikes/');
+const ws = new WebSocket(`ws://${window.location.host}/ws/post_likes_dislikes/`);
 
 ws.onmessage = function(event) {
     const data = JSON.parse(event.data);
@@ -13,7 +13,6 @@ ws.onmessage = function(event) {
         likeCountElement.textContent = likeCount;
         dislikeCountElement.textContent = dislikeCount;
     }
-
 };
 
 ws.onopen = function(event) {
@@ -25,9 +24,7 @@ document.addEventListener('click', function(event) {
         const postId = event.target.getAttribute('data-post-id');
         addLike(postId);
     }
-});
 
-document.addEventListener('click', function(event) {
     if (event.target.classList.contains('dislikeBtn')) {
         const postId = event.target.getAttribute('data-post-id');
         addDislike(postId);
@@ -37,7 +34,7 @@ document.addEventListener('click', function(event) {
 function addLike(postId) {
     const csrftoken = getCookie('csrftoken');
 
-    fetch(`http://127.0.0.1:8001/api/posts/${postId}/add_favorite/`, {
+    fetch(`/api/posts/${postId}/add_favorite/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -46,12 +43,13 @@ function addLike(postId) {
         body: JSON.stringify({ status: true })
     })
     .then(response => {
+        if (response.status === 401) {
+            window.location.href = `/auth/login`;
+        }
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         return response.json();
-    })
-    .then(data => {
     })
     .catch(error => {
         console.error('Error:', error);
@@ -61,7 +59,7 @@ function addLike(postId) {
 function addDislike(postId) {
     const csrftoken = getCookie('csrftoken');
 
-    fetch(`http://127.0.0.1:8001/api/posts/${postId}/add_favorite/`, {
+    fetch(`/api/posts/${postId}/add_favorite/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -70,12 +68,13 @@ function addDislike(postId) {
         body: JSON.stringify({ status: false })
     })
     .then(response => {
+        if (response.status === 401) {
+            window.location.href = `/auth/login`;
+        }
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         return response.json();
-    })
-    .then(data => {
     })
     .catch(error => {
         console.error('Error:', error);
