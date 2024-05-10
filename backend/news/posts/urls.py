@@ -5,6 +5,6 @@ app_name = "posts"
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("api/load_more/", views.load_more, name="load_more"),
     path("post_detail/<int:post_id>/", views.post_detail, name="post_detail"),
+    path("views/", views.top_views, name="top_views"),
 ]
