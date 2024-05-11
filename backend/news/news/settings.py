@@ -11,12 +11,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = (
     "django-insecure-123456778999999999999999999999999999"
-)
+)  # в .env
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+API_URL = "http://127.0.0.1:8001/"  # в .env
+
+ALLOWED_HOSTS = ["*"]  # в .env
 
 
 # Application definition

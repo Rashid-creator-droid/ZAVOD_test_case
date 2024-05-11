@@ -1,4 +1,5 @@
 from django.db.models import Count
+from django.conf import settings
 from .models import Ip, Post
 from django.shortcuts import get_object_or_404, render
 import requests
@@ -35,7 +36,7 @@ def top_views(request):
 def post_detail(request, post_id):
     """Страница 1 поста"""
     post = get_object_or_404(Post, pk=post_id)
-    response = requests.get(f"http://127.0.0.1:8001/api/posts/{post_id}/")
+    response = requests.get(f"{settings.API_URL}api/posts/{post_id}/")
     ip = get_client_ip(request)
 
     if Ip.objects.filter(ip=ip).exists():
